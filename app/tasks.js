@@ -59,7 +59,7 @@ export default class Tasks extends Component {
 			this.setState({loading:false})
 		})
 	}
-	timeout(){
+	async timeout(){
 			setInterval(function(){
 				this.setState({refreshing:true})
 				this.setState({refreshing:false})
