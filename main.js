@@ -10,10 +10,6 @@ import Tasks from './app/tasks'
 import AddTask from './app/addTask'
 import EditTask from './app/editTask'
 
-console.ignoredYellowBox = [
-    'Setting a timer'
-]
-
 // Initialize Firebase
 const firebaseConfig = {
 	apiKey: "AIzaSyClg-rAXSEPeih2Vzh7b1eytr6zTrjKnWk",
