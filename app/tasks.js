@@ -36,9 +36,10 @@ export default class Tasks extends Component {
 				this.state.dataSource.map(function(item,index){
 					keys.push(item.key)
 				})
+				let deleteArr = keys
 				this.setState({loading:false})
 				arr.map(function(item,index){
-					if(!keys.includes(item.key)){
+					if(!keys.includes(item.key)){  // For add tasks
 						let sortData = this.state.dataSource.concat([item])
 						sortData.sort(function(a, b) {
 									  return b.urgent - a.urgent
@@ -48,18 +49,25 @@ export default class Tasks extends Component {
 						    dataSource: this.immutableSplice(this.state.dataSource,index,0,item)
 						})
 					}
-					else{
+					else{  // For updating tasks
 						let {dataSource} = this.state
 						dataSource[keys.indexOf(item.key)] = item
 						this.setState({dataSource})
-
+						deleteArr.splice(deleteArr.indexOf(item.key),1)
+					}
+				}.bind(this))
+				this.state.dataSource.map(function(item,index){   // For deleting tasks
+					if(deleteArr.includes(item.key)){
+						this.setState({
+							dataSource:this.immutableSplice(this.state.dataSource,this.state.dataSource.indexOf(item),1)
+						})
 					}
 				}.bind(this))
 			}
 			this.setState({loading:false})
 		})
 	}
-	async timeout(){
+	timeout(){
 			setInterval(function(){
 				this.setState({refreshing:true})
 				this.setState({refreshing:false})
